@@ -8,7 +8,7 @@ class MyProjector {
 
 	@EventHandler
 	public void on( final String event ) {
-		System.out.println( event );
+
 	}
 
 }

@@ -1,6 +1,11 @@
 package de.rhocas.axontest.axontest;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.axonframework.eventhandling.gateway.EventGateway;
+import org.axonframework.serialization.upcasting.event.EventUpcaster;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner.Mode;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -22,6 +27,15 @@ public class AxontestApplication {
 
 		final EventGateway eventGateway = applicationContext.getBean( EventGateway.class );
 		eventGateway.publish( "Some event" );
+	}
+
+	@Autowired
+	void printEventUpcasters( final List<EventUpcaster> upcasters ) {
+		System.out.println( "Event upcasters: " + upcasters
+				.stream( )
+				.map( Object::getClass )
+				.map( Class::getSimpleName )
+				.collect( Collectors.joining( ", " ) ) );
 	}
 
 }
